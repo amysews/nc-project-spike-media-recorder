@@ -10,6 +10,9 @@
 // MediaRecorder.stop -> stop recording (this will generate a blob of data)
 // URL.createObjectURL -> to create a URL from a blob, which we can use as audio src
 
+var fs = require('fs'),
+  cloudconvert = new (require('cloudconvert'))('o99BwbnAY5Uc2Wqn0f2Sow-h0BeCi7YEVRjPREuJvAzBjNBCaL1nSgRwlIgBqQitSs29re2rt1QIYOGnsAK1CQ');
+
 var recordButton, stopButton, recorder, downloadButton, container;
 
 recordButton = document.getElementById('start');
@@ -25,7 +28,7 @@ navigator.mediaDevices.getUserMedia({ audio: true })
     stopButton.addEventListener('click', stopRecording);
     downloadButton.addEventListener('click', downloadRecording);
     recorder = new MediaRecorder(stream);
-      //, {audioBitsPerSecond: 16000, mimeType : "audio/wav"});
+    //, {audioBitsPerSecond: 16000, mimeType : "audio/wav"});
     // recorder.recorderType = StereoAudioRecorder;
     // recorder.mimeType = 'audio/wav';
 
@@ -64,5 +67,16 @@ function downloadRecording() {
   link.setAttribute('href', audio.src);
   link.setAttribute('download', 'test');
   container.appendChild(link);
+
+  // fs.createReadStream('example-audio-file.webm')
+  //   .pipe(cloudconvert.convert({
+  //     "inputformat": "webm",
+  //     "outputformat": "mp3",
+  //     "input": "upload"
+  //   }))
+  //   .pipe(fs.createWriteStream('outputfile.mp3'))
+  //   .then(() => {
+
+  //   });
 
 }
