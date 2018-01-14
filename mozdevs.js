@@ -10,10 +10,12 @@
 // MediaRecorder.stop -> stop recording (this will generate a blob of data)
 // URL.createObjectURL -> to create a URL from a blob, which we can use as audio src
 
-var recordButton, stopButton, recorder;
+var recordButton, stopButton, recorder, downloadButton, container;
 
 recordButton = document.getElementById('start');
 stopButton = document.getElementById('stop');
+downloadButton = document.getElementById('download');
+container = document.getElementById('container');
 
 // get audio stream from user's mic
 navigator.mediaDevices.getUserMedia({ audio: true })
@@ -21,7 +23,11 @@ navigator.mediaDevices.getUserMedia({ audio: true })
     recordButton.disabled = false;
     recordButton.addEventListener('click', startRecording);
     stopButton.addEventListener('click', stopRecording);
-    recorder = new MediaRecorder(stream, {audioBitsPerSecond: 16000, mimeType : "audio/webm"});
+    downloadButton.addEventListener('click', downloadRecording);
+    recorder = new MediaRecorder(stream);
+      //, {audioBitsPerSecond: 16000, mimeType : "audio/wav"});
+    // recorder.recorderType = StereoAudioRecorder;
+    // recorder.mimeType = 'audio/wav';
 
     // listen to dataavailable, which gets triggered whenever we have
     // an audio blob available
@@ -48,5 +54,15 @@ function onRecordingReady(e) {
   console.log(e.data)
   // e.data contains a blob representing the recording
   audio.src = URL.createObjectURL(e.data);
+  console.log(audio.src);
   // audio.play();
+}
+
+function downloadRecording() {
+  const link = document.createElement('a');
+  link.innerText = 'download here';
+  link.setAttribute('href', audio.src);
+  link.setAttribute('download', 'test');
+  container.appendChild(link);
+
 }
