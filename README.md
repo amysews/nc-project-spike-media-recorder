@@ -2,21 +2,46 @@
 
 ## Version 1:
 HTML file - 
+
 https://github.com/amysews/nc-project-spike-media-recorder/blob/master/index.html
 
 Main MediaRecorder Logic - 
+
 https://github.com/amysews/nc-project-spike-media-recorder/blob/master/mozdevs.js
 
 Converter using cloudconvert - 
+
 https://github.com/amysews/nc-project-spike-media-recorder/blob/master/convert.js
 
 Speech to Text using IBM Watson - 
+
 https://github.com/amysews/nc-project-spike-media-recorder/blob/master/speech-to-text.js
 
 ## Version 2:
 Tried to combine above into single js file - 
+
 https://github.com/amysews/nc-project-spike-media-recorder/blob/master/main.js
+
 But realised couldn't use node modules in this way client-side
+
+
+>Relies on config folder:
+
+>config/watson.js
+
+>module.exports = {
+
+>  "url": "https://stream.watsonplatform.net/speech-to-text/api",
+
+>  "username": <insert username>,
+  
+>  "password": <insert password>
+  
+> }
+
+>config/cloudconvert.js
+
+>module.exports = <key>;
 
 ## Version 3:
 Tried recreating in React but realised can't use fs node module in React so need new plan - 
